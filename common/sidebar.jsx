@@ -36,6 +36,7 @@ var ApplicationSidebar = React.createClass({
                   {loginOrOut}
                   <SidebarNavItem glyph='icon-fontello-gauge' name='Blank' href='/blank' />
                   <SidebarNavItem glyph='icon-fontello-gauge' name='About' href='/about' />
+                  <SidebarNavItem glyph='icon-fontello-gauge' name='Dashboard' href='/dashboard' />
                   <SidebarNavItem glyph='icon-feather-mail' name={<span>Menu <BLabel className='bg-darkgreen45 fg-white'>3</BLabel></span>}>
                     <SidebarNav>
                       <SidebarNavItem glyph='icon-feather-inbox' name='Inbox' />
