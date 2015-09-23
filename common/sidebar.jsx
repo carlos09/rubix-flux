@@ -6,8 +6,25 @@ import {
 import { Link } from 'react-router';
 import LoremIpsum from 'global/jsx/loremipsum';
 
-class ApplicationSidebar extends React.Component {
+var auth = require('../stores/app-auth'); // TODO / USE DISPATCHER & ACTIONS
+var Login = require('../components/auth/app-login');
+var AppActions = require('../actions/app-actions.js');
+var AuthStore = require('../stores/app-auth.js');
+
+var ApplicationSidebar = React.createClass({
+  getInitialState: function () {
+    return AuthStore.getState();
+  },
+  setStateOnAuth: function (loggedIn) {
+    this.setState(AuthStore.getState());
+  },
+  componentWillMount: function () {
+    AuthStore.authOnChangeHeader(this.setStateOnAuth);
+  },
   render() {
+    var loginOrOut = this.state.loggedIn ?
+      <SidebarNavItem glyph='icon-fontello-gauge' name='Log Out' href="/logout" /> :
+      <SidebarNavItem glyph='icon-fontello-gauge' name='Log In' href="/" />;
     return (
       <div>
         <Grid>
@@ -16,7 +33,9 @@ class ApplicationSidebar extends React.Component {
               <div className='sidebar-header'>PAGES</div>
               <div className='sidebar-nav-container'>
                 <SidebarNav style={{marginBottom: 0}}>
-                  <SidebarNavItem glyph='icon-fontello-gauge' name='Blank' href='/' />
+                  {loginOrOut}
+                  <SidebarNavItem glyph='icon-fontello-gauge' name='Blank' href='/blank' />
+                  <SidebarNavItem glyph='icon-fontello-gauge' name='About' href='/about' />
                   <SidebarNavItem glyph='icon-feather-mail' name={<span>Menu <BLabel className='bg-darkgreen45 fg-white'>3</BLabel></span>}>
                     <SidebarNav>
                       <SidebarNavItem glyph='icon-feather-inbox' name='Inbox' />
@@ -32,7 +51,7 @@ class ApplicationSidebar extends React.Component {
       </div>
     );
   }
-}
+});
 
 class DummySidebar extends React.Component {
   render() {

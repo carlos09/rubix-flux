@@ -44,6 +44,7 @@ var EntityStore = React.addons.update(EventEmitter.prototype, {$merge: {
         default:
             return true;
     }
+		console.log('test' + action.response);
     EntityStore.emitChange();
 
     return true;
